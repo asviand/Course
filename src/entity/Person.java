@@ -1,6 +1,9 @@
 package entity;
 
+import org.w3c.dom.ls.LSOutput;
+
 import java.io.*;
+import java.util.Scanner;
 
 public class Person {
     private int id;
