@@ -1,7 +1,5 @@
 package entity;
 
-import org.w3c.dom.ls.LSOutput;
-
 import java.io.*;
 import java.util.Scanner;
 
@@ -20,11 +18,19 @@ public class Person {
         this.id = id;
     }
 
+    public Person(int id, int age, String name) {
+        this.id = id;
+        this.age = age;
+        this.name = name;
+    }
+
+    //7.1
     public static void saveTo(File file, Person person) {
         try (FileOutputStream outputStream = new FileOutputStream(file)) {
             try (PrintWriter writer = new PrintWriter(outputStream)) {
-                writer.write(person.id);
-                writer.write(person.age);
+                writer.println(person.getId());
+                writer.println(person.getAge());
+                writer.println(person.getName());
                 writer.close();
             }
         } catch (FileNotFoundException e) {
@@ -36,7 +42,42 @@ public class Person {
         }
     }
 
-    public static void loadFrom(File file) {
+    //7.2
+    public static Person loadFrom(File file) throws FileNotFoundException {
+        Scanner scanner = new Scanner(new FileInputStream(file));
+        int id = Integer.parseInt(scanner.nextLine());
+        int age = Integer.parseInt(scanner.nextLine());
+        String name = scanner.nextLine();
+        scanner.close();
+        return new Person(id, age, name);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+}
+
+/*public static void loadFrom(File file) {
         try (FileInputStream stream = new FileInputStream(file)) {
             try {
                 int i;
@@ -54,6 +95,7 @@ public class Person {
             throw new RuntimeException(e);
         }
     }
-}
+    */
+
 
 
