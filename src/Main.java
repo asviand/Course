@@ -19,21 +19,21 @@ public class Main {
         System.out.println("Would you like to upload or enter data?  Upload/Enter");
         String answer = loadingOrEnter.nextLine();
         if (answer.equalsIgnoreCase("Upload")) {
-            System.out.println("путь до файла");
+            System.out.println("Enter the path to the file");
             String filePath = loadingOrEnter.nextLine();
             File x = new File(filePath);
             Person person = null;
             try {
                 person = Person.loadFrom(file);
             } catch (FileNotFoundException e) {
-                System.out.println("Файл не найден");
+                System.out.println("File not found");
             }
 
             if (person != null) {
-                System.out.println("Данные загружены:");
-                System.out.println("id: " + person.getId());
-                System.out.println("Имя: " + person.getName());
-                System.out.println("Возраст: " + person.getAge());
+                System.out.println("Data loaded:");
+                System.out.println("Id: " + person.getId());
+                System.out.println("Name: " + person.getName());
+                System.out.println("Age: " + person.getAge());
             }
 
         } else if (answer.equalsIgnoreCase("Enter")) {
