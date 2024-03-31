@@ -25,25 +25,17 @@ public class DirectoryPersonRepository implements PersonRepository {
     //3.2
     @Override
     public void save(Person person) throws IOException {
-
+        File file = new File(dir.getPath() + person.getId());
+        Person.saveTo(file, person);
     }
 
     @Override
     public Person load(int id) throws IOException {
-        return null;
+        File file = new File(dir.getPath() + id);
+        return Person.loadFrom(file);
     }
 
     public File getDir() {
         return dir;
     }
-
-
 }
-//3 В пакете repository создать файл DirectoryPersonRepository который
-//реализует интерфейс PersonRepository и имеет поле dir типа File .
-//1. Создать конструктор который принимает аргумент dir типа File и
-//проверяет, что это папка и если ее нет, пытается создать. Если не
-//получилось создать то бросает исключение
-//IllegalArgumentException .
-//2. Реализовать методы save и load которые работают с файлами из
-//папки dir .
