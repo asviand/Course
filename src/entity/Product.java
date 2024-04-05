@@ -14,17 +14,21 @@ public class Product implements Comparable<Product> {
     }
 
 
-    @Override
-    public int compareTo(Product o) {
-        return Double.compare(id, o.id);
-    }
-
     //10.1.4
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Product product = (Product) o;
+    public int compareTo(Product product) {
+        return Double.compare(id, product.id);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Product product = (Product) obj;
         return id == product.id;
     }
 
