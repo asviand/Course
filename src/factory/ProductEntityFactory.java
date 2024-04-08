@@ -1,13 +1,13 @@
 package factory;
 
+import entity.Product;
+
 import java.io.IOException;
 
-//todo 10.8 реализация метода create который возвращает новый объект
-//класса Product , в котором поле id имеет значения полученное из
-//метода getNextId
-public class ProductEntityFactory extends SimpleEntityFactory {
+
+public class ProductEntityFactory extends SimpleEntityFactory<Product> {
     @Override
-    public Object create() throws IOException {
-        return null;
+    public Product create() throws IOException {
+        return new Product(getNextId());
     }
 }

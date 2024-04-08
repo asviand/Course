@@ -13,6 +13,11 @@ public class Product implements Comparable<Product> {
         this.id = id;
     }
 
+    public Product(int id, String name, double price) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+    }
 
     //10.1.4
     @Override
@@ -35,5 +40,17 @@ public class Product implements Comparable<Product> {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getPrice() {
+        return price;
     }
 }

@@ -15,6 +15,13 @@ public class Sale implements Iterable<Product>{
         this.id = id;
     }
 
+    public Sale(int id, double amount, Person person, Map<Product, Double> products) {
+        this.id = id;
+        this.amount = amount;
+        this.person = person;
+        this.products = products;
+    }
+
     public Sale(Map<Product, Double> products, int id) {
         this.id = id;
         this.products = new TreeMap<>();
