@@ -7,11 +7,9 @@ import entity.Sale;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
-//todo 10.4 реализовать методы из интерфейса Repository<Sale> для класса Sale
+//10.4
 
 public class DirectorySaleRepository implements Repository<Sale> {
     private final File dir;
@@ -34,7 +32,12 @@ public class DirectorySaleRepository implements Repository<Sale> {
             writer.println(obj.getPerson().getId());
             writer.println(obj.getPerson().getAge());
             writer.println(obj.getPerson().getName());
-            //todo products
+            writer.println(obj.getProducts().size());
+                for (Map.Entry<Product, Double> entry : obj.getProducts().entrySet()) {
+                writer.println(entry.getKey().getId());
+                writer.println(entry.getKey().getName());
+                writer.println(entry.getKey().getPrice());
+                }
             writer.close();
         }
 
@@ -49,8 +52,16 @@ public class DirectorySaleRepository implements Repository<Sale> {
             int personAge = Integer.parseInt(scanner.nextLine());
             String personName = scanner.nextLine();
             Person newPerson = new Person(personId, personAge, personName);
-//todo products
-            return new Sale(id, amount, newPerson, );
+            int productsSize = Integer.parseInt(scanner.nextLine());
+            Map<Product, Double> products = new HashMap<>();
+            for (int i = 0; i < productsSize; i++) {
+                int productId = Integer.parseInt(scanner.nextLine());
+                String productName = scanner.nextLine();
+                double price = Double.parseDouble(scanner.nextLine());
+                Product product = new Product(productId, productName, price);
+                products.put(product,Double.parseDouble(scanner.nextLine()));
+            }
+            return new Sale(id, amount, newPerson, products);
         }
     }
     @Override

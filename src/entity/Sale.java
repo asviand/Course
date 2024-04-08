@@ -43,4 +43,12 @@ public class Sale implements Iterable<Product>{
     public Person getPerson() {
         return person;
     }
+
+    public void setProducts(Map<Product, Double> products) {
+        this.products = products;
+    }
+
+    public Map<Product, Double> getProducts() {
+        return products;
+    }
 }
