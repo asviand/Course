@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 //10.4
 
@@ -71,6 +72,19 @@ public class DirectorySaleRepository implements Repository<Sale> {
             list.add(load(ids.get(i)));
         }
         return list;
+    }
+//12.2
+    public List<Sale> loadAllByPersonId (int id) throws IOException {
+        return Arrays.stream(Objects.requireNonNull(dir.listFiles()))
+                .map(x -> {
+                    try {
+                        return load(id);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                })
+                .filter(sale -> sale.getPerson().getId() == id)
+                .collect(Collectors.toList());
     }
 
 
