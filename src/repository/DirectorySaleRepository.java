@@ -5,6 +5,7 @@ import entity.Product;
 import entity.Sale;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
@@ -46,8 +47,26 @@ public class DirectorySaleRepository implements Repository<Sale> {
     @Override
     public Sale load(int id) throws IOException {
         File file = new File(dir.getPath()+id);
+        return load(file);
+    }
+    @Override
+    public List<Sale> load(List<Integer> ids) throws IOException {
+        List<Sale> list = new ArrayList<>();
+        for (int i = 0; i < ids.size(); i++) {
+            list.add(load(ids.get(i)));
+        }
+        return list;
+    }
+//12.2
+    public List<Sale> loadAllByPersonId (int id) throws IOException {
+        return Arrays.stream(dir.listFiles())
+                .map(x -> load(x))
+                .filter(x -> x.getPerson().getId() == id && x.getPerson() != null && x != null)
+                .collect(Collectors.toList());
+    }
+    private Sale load(File file)  {
         try (Scanner scanner = new Scanner(file)){
-            scanner.nextLine();
+            int id = Integer.parseInt(scanner.nextLine());
             double amount = Double.parseDouble(scanner.nextLine());
             int personId = Integer.parseInt(scanner.nextLine());
             int personAge = Integer.parseInt(scanner.nextLine());
@@ -63,29 +82,9 @@ public class DirectorySaleRepository implements Repository<Sale> {
                 products.put(product,Double.parseDouble(scanner.nextLine()));
             }
             return new Sale(id, amount, newPerson, products);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
-    @Override
-    public List<Sale> load(List<Integer> ids) throws IOException {
-        List<Sale> list = new ArrayList<>();
-        for (int i = 0; i < ids.size(); i++) {
-            list.add(load(ids.get(i)));
-        }
-        return list;
-    }
-//12.2
-    public List<Sale> loadAllByPersonId (int id) throws IOException {
-        return Arrays.stream(Objects.requireNonNull(dir.listFiles()))
-                .map(x -> {
-                    try {
-                        return load(id);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                })
-                .filter(sale -> sale.getPerson().getId() == id)
-                .collect(Collectors.toList());
-    }
-
 
 }

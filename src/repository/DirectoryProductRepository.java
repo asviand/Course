@@ -59,7 +59,6 @@ public class DirectoryProductRepository implements Repository<Product> {
     //12.3
     public Product loadFile (File file) {
         try (Scanner scanner = new Scanner(file)){
-            scanner.nextLine();
             int id = Integer.parseInt(scanner.nextLine());
             String name = scanner.nextLine();
             double price = Double.parseDouble(scanner.nextLine());
