@@ -1,5 +1,7 @@
 package entity;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
@@ -10,6 +12,7 @@ public class Sale implements Iterable<Product>{
     double amount;
     Person person;
     Map<Product, Double> products = new TreeMap<>();
+    LocalDateTime timestamp;
 
     public Sale(int id) {
         this.id = id;
@@ -22,9 +25,29 @@ public class Sale implements Iterable<Product>{
         this.products = products;
     }
 
+    public Sale(int id, double amount, Person person, Map<Product, Double> products, LocalDateTime timestamp) {
+        this.id = id;
+        this.amount = amount;
+        this.person = person;
+        this.products = products;
+        this.timestamp = timestamp;
+    }
+
+
     public Sale(Map<Product, Double> products, int id) {
         this.id = id;
         this.products = new TreeMap<>();
+    }
+
+    @Override
+    public String toString() {
+        return "Sale{" +
+                "id=" + id +
+                ", amount=" + amount +
+                ", person=" + person +
+                ", products=" + products +
+                ", timestamp=" + timestamp +
+                '}';
     }
 
     @Override
@@ -42,6 +65,14 @@ public class Sale implements Iterable<Product>{
 
     public Person getPerson() {
         return person;
+    }
+
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
     }
 
     public void setProducts(Map<Product, Double> products) {
